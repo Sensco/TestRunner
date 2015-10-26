@@ -29,15 +29,19 @@
         private void InitializeComponent()
         {
             this.labelTimer = new System.Windows.Forms.Label();
-            this.listEvents = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonNewEvent = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonClear = new System.Windows.Forms.Button();
+            this.dataGrid = new System.Windows.Forms.DataGridView();
+            this.dataSet = new TestRunner.RecordedDataSet();
             this.visualizer = new TestRunner.Controls.VisualizerControl();
             this.buttonPause = new TestRunner.Controls.PauseButton();
             this.buttonStart = new TestRunner.Controls.RecordButton();
             this.buttonStop = new TestRunner.Controls.StopButton();
-            this.buttonNewEvent = new System.Windows.Forms.Button();
+            this.timestampDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // labelTimer
@@ -50,24 +54,60 @@
             this.labelTimer.TabIndex = 3;
             this.labelTimer.Text = "00:00:00";
             // 
-            // listEvents
+            // buttonNewEvent
             // 
-            this.listEvents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
-            this.listEvents.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listEvents.Location = new System.Drawing.Point(10, 210);
-            this.listEvents.Name = "listEvents";
-            this.listEvents.Size = new System.Drawing.Size(237, 246);
-            this.listEvents.TabIndex = 5;
-            this.listEvents.UseCompatibleStateImageBehavior = false;
-            this.listEvents.View = System.Windows.Forms.View.Details;
+            this.buttonNewEvent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonNewEvent.Location = new System.Drawing.Point(555, 264);
+            this.buttonNewEvent.Name = "buttonNewEvent";
+            this.buttonNewEvent.Size = new System.Drawing.Size(75, 23);
+            this.buttonNewEvent.TabIndex = 6;
+            this.buttonNewEvent.Text = "New Event";
+            this.buttonNewEvent.UseVisualStyleBackColor = true;
             // 
-            // columnHeader1
+            // buttonSave
             // 
-            this.columnHeader1.Width = 30;
-            this.columnHeader2.Width = 60;
+            this.buttonSave.Location = new System.Drawing.Point(12, 264);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.TabIndex = 7;
+            this.buttonSave.Text = "Save...";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.Location = new System.Drawing.Point(93, 264);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(75, 23);
+            this.buttonClear.TabIndex = 8;
+            this.buttonClear.Text = "Clear";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.ButtonClear_Click);
+            // 
+            // dataGrid
+            // 
+            this.dataGrid.AllowUserToAddRows = false;
+            this.dataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGrid.AutoGenerateColumns = false;
+            this.dataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
+            this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.timestampDataGridViewTextBoxColumn,
+            this.descriptionDataGridViewTextBoxColumn});
+            this.dataGrid.DataBindings.Add(new System.Windows.Forms.Binding("Tag", this.dataSet, "events.Description", true));
+            this.dataGrid.DataMember = "events";
+            this.dataGrid.DataSource = this.dataSet;
+            this.dataGrid.Location = new System.Drawing.Point(259, 12);
+            this.dataGrid.Name = "dataGrid";
+            this.dataGrid.Size = new System.Drawing.Size(371, 246);
+            this.dataGrid.TabIndex = 9;
+            // 
+            // dataSet
+            // 
+            this.dataSet.DataSetName = "NewDataSet";
             // 
             // visualizer
             // 
@@ -101,29 +141,39 @@
             this.buttonStop.TabIndex = 0;
             this.buttonStop.UseVisualStyleBackColor = true;
             // 
-            // buttonNewEvent
+            // timestampDataGridViewTextBoxColumn
             // 
-            this.buttonNewEvent.Location = new System.Drawing.Point(172, 462);
-            this.buttonNewEvent.Name = "buttonNewEvent";
-            this.buttonNewEvent.Size = new System.Drawing.Size(75, 23);
-            this.buttonNewEvent.TabIndex = 6;
-            this.buttonNewEvent.Text = "New Event";
-            this.buttonNewEvent.UseVisualStyleBackColor = true;
+            this.timestampDataGridViewTextBoxColumn.DataPropertyName = "Timestamp";
+            this.timestampDataGridViewTextBoxColumn.HeaderText = "Timestamp";
+            this.timestampDataGridViewTextBoxColumn.Name = "timestampDataGridViewTextBoxColumn";
+            this.timestampDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
             // 
             // RecordForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(259, 496);
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(641, 293);
+            this.Controls.Add(this.dataGrid);
+            this.Controls.Add(this.buttonClear);
+            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonNewEvent);
-            this.Controls.Add(this.listEvents);
             this.Controls.Add(this.visualizer);
             this.Controls.Add(this.labelTimer);
             this.Controls.Add(this.buttonPause);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.buttonStop);
+            this.MinimumSize = new System.Drawing.Size(657, 332);
             this.Name = "RecordForm";
             this.Text = "Record";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -132,14 +182,16 @@
         #endregion
         private System.Windows.Forms.Label labelTimer;
         private Controls.VisualizerControl visualizer;
-        private System.Windows.Forms.ListView listEvents;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
         private Controls.StopButton buttonStop;
         private Controls.RecordButton buttonStart;
         private Controls.PauseButton buttonPause;
         private System.Windows.Forms.Button buttonNewEvent;
+        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.DataGridView dataGrid;
+        private RecordedDataSet dataSet;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timestampDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
     }
 }
 
